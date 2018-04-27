@@ -1,0 +1,43 @@
+{
+  "presets": [
+    [
+      "env",{
+        "modules": false,
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8" , "safari >= 7"]
+        }
+      }
+    ],
+    "react",
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "react-hot-loader/babel",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": "scss"
+      }
+    ],
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ],
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+    
+  ],
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": ["env"],
+      "plugins": ["istanbul"]
+    },
+    "production": {
+      "presets": ["react-optimize"]
+    }
+  }
+}
