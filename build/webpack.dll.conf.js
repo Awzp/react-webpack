@@ -7,7 +7,7 @@ const shelljs = require('shelljs')
 
 const outputPath = path.join(__dirname, '../dll');
 shelljs.rm('-r', outputPath)
-
+console.log(__dirname)
 const plugin = [
   new webpack.DllPlugin({
     /**
@@ -24,12 +24,10 @@ const plugin = [
     name: '[name]',
     context: __dirname,
   }),
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify("production")
-  }),
 ];
 
 module.exports = {
+  mode:'production',
   devtool: 'source-map',
   entry: {
     dll: lib

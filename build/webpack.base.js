@@ -4,11 +4,10 @@ const utils = require('./utils.js');
 let config = require('../config')
 let isProd = process.env.NODE_ENV === 'production'
 function resolve(dir) {
-  return path.join(__dirname, '../../', dir)
+  return path.join(__dirname, '../', dir)
 }
 
 module.exports = {
-  mode: isProd ? 'production' : 'development',
   entry: isProd ? config.build.entry : config.dev.entry,
   output: {
     path: config.build.assetsRoot,

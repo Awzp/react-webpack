@@ -18,7 +18,7 @@
       "import",
       {
         "libraryName": "antd",
-        "style": "scss"
+        "style": "css"
       }
     ],
     [

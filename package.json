@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "A react-wepback Template",
   "scripts": {
-    "dev": "node build/dev-server.js",
-    "build": "npm run dll && node build/build.js",
-    "build:base": "node build/build.js",
-    "dll": "webpack --config build/webpack.dll.conf.js --progress --mode development"
+    "dev": "export NODE_ENV=development && node build/dev-server.js ",
+    "build": "export NODE_ENV=production && npm run dll && node build/build.js ",
+    "build:base": "export NODE_ENV=production && node build/build.js",
+    "dll": "webpack --config build/webpack.dll.conf.js --progress"
   },
   "author": "wangzhongpu",
   "license": "ISC",
@@ -37,8 +37,10 @@
     "babel-register": "^6.26.0",
     "bundle-loader": "^0.5.6",
     "chalk": "^2.4.0",
+    "compression-webpack-plugin": "^1.1.11",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -63,13 +65,14 @@
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
+    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.15",
     "webpack-dev-middleware": "^3.1.2",
     "webpack-hot-middleware": "^2.22.1",
     "webpack-merge": "^4.1.2"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">=6.11.5",
     "npm": ">= 3.0.0"
   },
   "browserslist": [

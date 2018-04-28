@@ -4,15 +4,15 @@ var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 var env = config.build.env
 
 // 增加各环境判断
-
 var webpackConfig = merge(baseWebpackConfig, {
+  mode:'production',
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
@@ -25,9 +25,11 @@ var webpackConfig = merge(baseWebpackConfig, {
     filename: utils.assetsPath('js/[name].js'),
     chunkFilename: utils.assetsPath('js/[id].js'),
   },
+  performance: {
+    hints: false
+  },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': env,
       __ENV__: JSON.stringify(env)
     }),
     // extract css into its own file
@@ -39,15 +41,15 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.index,
       template: 'index.html',
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      // minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeAttributeQuotes: true
+      //   // more options:
+      //   // https://github.com/kangax/html-minifier#options-quick-reference
+      // },
+      // // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      // chunksSortMode: 'dependency'
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -60,7 +62,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       context: __dirname,
       manifest: require('../dll/manifest.json'),
     }),
-    new webpack.optimize.ModuleConcatenationPlugin()
+    new AddAssetHtmlPlugin([{
+      filepath: utils.getDllPath('../dll'),
+      hash: false,
+      includeSourcemap: false
+    }]),
   ]
 })
 
